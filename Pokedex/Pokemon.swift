@@ -24,6 +24,7 @@ class Pokemon {
     private var _nextEvolutionID: String!
     private var _nextEvolutionLevel: String!
     private var _pokemonURL: String!
+    private var _moves = [Ability]()
     
     var name: String {
         return _name
@@ -101,6 +102,13 @@ class Pokemon {
             _nextEvolutionLevel = ""
         }
         return _nextEvolutionLevel
+    }
+    
+    var moves: [Ability] {
+        if _moves.isEmpty {
+            _moves = []
+        }
+        return _moves
     }
     
     init(name: String, pokedexID: Int) {
@@ -190,6 +198,17 @@ class Pokemon {
                         }
                     }
                 }
+                
+                if let abilities = dict["moves"] as? [Dictionary<String, AnyObject>] where abilities.count > 0 {
+                    for ability in abilities {
+                        if ability["learn_type"] as? String == "level up" {
+                            if let level = ability["level"] as? Int, let name = ability["name"] as? String {
+                                self._moves.append(Ability(level: "\(level)", name: "\(name)"))
+                            }
+                        }
+                    }
+                }
+                
                 
             }
         }

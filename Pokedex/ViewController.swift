@@ -82,7 +82,7 @@ class ViewController: UIViewController {
             musicPlayer = try AVAudioPlayer(contentsOfURL: NSURL(string: path)!)
             musicPlayer.prepareToPlay()
             musicPlayer.numberOfLoops = -1
-            musicPlayer.play()
+//            musicPlayer.play()
         } catch {
             print(error)
         }
@@ -159,6 +159,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate, 
             poke = pokemons[indexPath.item]
         }
         performSegueWithIdentifier("showDetailSegue", sender: poke)
+        self.collectionView.deselectItemAtIndexPath(indexPath, animated: true)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -193,10 +194,6 @@ extension ViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        view.endEditing(true)
-    }
-    
-    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
         view.endEditing(true)
     }
 }

@@ -22,6 +22,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var currentEvoImage: UIImageView!
     @IBOutlet weak var nextEvoImage: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var bioStackView: UIStackView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     
     var pokemon: Pokemon!
@@ -77,6 +79,8 @@ class DetailViewController: UIViewController {
             if pokemon.nextEvolutionLevel != "" {
                 str += " - Lvl \(self.pokemon.nextEvolutionLevel)"
             }
+            
+            self.evolutionLabel.text = str
         }
 
     }
