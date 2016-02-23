@@ -10,6 +10,13 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var bioStackView: UIStackView!
+    @IBOutlet weak var evolutionUIView: UIView!
+    @IBOutlet weak var evosStackView: UIStackView!
+    
+    
     @IBOutlet weak var mainImage: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
@@ -22,7 +29,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var currentEvoImage: UIImageView!
     @IBOutlet weak var nextEvoImage: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var bioStackView: UIStackView!
+
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     
@@ -33,24 +40,26 @@ class DetailViewController: UIViewController {
 //        self.activityIndicator.startAnimating()
         // Do any additional setup after loading the view.
         self.title = pokemon.name.capitalizedString
-        let attrs = [
-            NSForegroundColorAttributeName: UIColor.whiteColor(),
-            NSFontAttributeName: UIFont(name: "PokemonSolidNormal", size: 20)!
-        ]
-        navigationController?.navigationBar.titleTextAttributes = attrs
-        navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         
-        
+        // Bio Setup
         self.mainImage.image = UIImage(named: "\(pokemon.pokedexID)")
         self.idLabel.text = String(pokemon.pokedexID)
         self.currentEvoImage.image = UIImage(named: "\(pokemon.pokedexID)")
         
+        
         self.pokemon.downloadPokemonDetails { () -> () in
             // execute code once data downloaded
             self.updateUI()
-            
+            print(self.pokemon.moves)
+            self.tableView.reloadData()
             self.activityIndicator.stopAnimating()
         }
+        
+        self.tableView.hidden = true
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,8 +67,24 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func segmentButtonPressed(sender: AnyObject) {
+        
+        if segmentedControl.selectedSegmentIndex == 0 {
+            //Hide Moves
+            tableView.hidden = true
+            bioStackView.hidden = false
+            evolutionUIView.hidden = false
+            evosStackView.hidden = false
+        } else {
+            //Hide Bio
+            tableView.hidden = false
+            bioStackView.hidden = true
+            evolutionUIView.hidden = true
+            evosStackView.hidden = true
+        }
+    }
 
-    //MARK: - Update UI
+    //MARK: - Update Bio UI
     func updateUI() {
         self.typeLabel.text = self.pokemon.type
         self.defenseLabel.text = self.pokemon.defense
@@ -81,6 +106,7 @@ class DetailViewController: UIViewController {
             }
             
             self.evolutionLabel.text = str
+            
         }
 
     }
@@ -95,4 +121,20 @@ class DetailViewController: UIViewController {
     }
     */
 
+}
+
+extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! MoveCell
+        
+        let move = pokemon.moves[indexPath.row]
+        cell.configureCell(move)
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return pokemon.moves.count
+    }
 }

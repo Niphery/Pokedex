@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         searchBar.returnKeyType = UIReturnKeyType.Done
         
         // Configure Navigation Bar Title
-        initiateNavController()
+//        initiateNavController()
         
         // Add button Navigation Bar
         let button = UIButton()
@@ -56,7 +56,15 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        initiateNavController()
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 120, height:  37))
+        imageView.contentMode = .ScaleAspectFit
+        
+        let image = UIImage(named: "pokedexlogo")
+        imageView.image = image
+//        imageView.layer.borderWidth = 1
+//        imageView.layer.borderColor = UIColor.redColor().CGColor
+        
+        navigationItem.titleView = imageView
     }
     
     override func didReceiveMemoryWarning() {

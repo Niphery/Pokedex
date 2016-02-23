@@ -108,7 +108,7 @@ class Pokemon {
         if _moves.isEmpty {
             _moves = []
         }
-        return _moves
+        return _moves.sort({ $0.level < $1.level })
     }
     
     init(name: String, pokedexID: Int) {
@@ -202,8 +202,25 @@ class Pokemon {
                 if let abilities = dict["moves"] as? [Dictionary<String, AnyObject>] where abilities.count > 0 {
                     for ability in abilities {
                         if ability["learn_type"] as? String == "level up" {
-                            if let level = ability["level"] as? Int, let name = ability["name"] as? String {
-                                self._moves.append(Ability(level: "\(level)", name: "\(name)"))
+                            if let level = ability["level"] as? Int, let name = ability["name"] as? String, let url = ability["resource_uri"] as? String {
+                                
+                                let nsurl = NSURL(string: "\(URL_BASE)\(url)")!
+                                
+                                Alamofire.request(.GET, nsurl).responseJSON { (response) -> Void in
+                                    
+                                    let moveResult = response.result
+                                    
+                                    if let movesDict = moveResult.value as? Dictionary<String, AnyObject> {
+                                        
+                                        if let accuracy = movesDict["accuracy"] as? Int, let pp = movesDict["pp"] as? Int, let description = movesDict["description"] as? String, let attack = movesDict["power"] as? Int {
+                                            self._moves.append(Ability(level: level, name: name, accuracy: "\(accuracy)", pp: "\(pp)", description: description, attack: "\(attack)"))
+//                                            print(self._moves)
+                                        }
+                                    }
+                                    completed()
+                                }
+                                
+                                
                             }
                         }
                     }
