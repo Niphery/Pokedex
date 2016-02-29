@@ -13,6 +13,8 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var animateBackgroundView: UIView!
+    
     var pokemons = [Pokemon]()
     var filteredPokemons = [Pokemon]()
     var musicPlayer: AVAudioPlayer!
@@ -27,7 +29,10 @@ class ViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         searchBar.delegate = self
+        self.splitViewController?.delegate = self
+        
         searchBar.returnKeyType = UIReturnKeyType.Done
+        self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.AllVisible
         
         // Configure Navigation Bar Title
 //        initiateNavController()
@@ -53,6 +58,8 @@ class ViewController: UIViewController {
         
         initAudio()
         parsePokemonCSV()
+        createCoolClouds()
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -119,8 +126,16 @@ class ViewController: UIViewController {
     
     //Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    
         if segue.identifier == "showDetailSegue" {
-            if let detailVC = segue.destinationViewController as? DetailViewController {
+            
+//            let indexPath = self.collectionView.indexPathForCell(self) as NSIndexPath
+            
+            let nav = segue.destinationViewController as! UINavigationController
+            
+            if let detailVC = nav.viewControllers[0] as? DetailViewController {
+            
+//            if let detailVC = segue.destinationViewController as? DetailViewController {
                 if let poke = sender as? Pokemon {
                     detailVC.pokemon = poke
                 }
@@ -128,7 +143,65 @@ class ViewController: UIViewController {
                 backItem.title = "Back"
                 navigationItem.backBarButtonItem = backItem
             }
+//            self.collectionView.deselectItemAtIndexPath(indexPath, animated: true)
         }
+    }
+    
+    func createCoolClouds() {
+        var duration: NSTimeInterval!
+        for i in 0...5 {
+            let cloud = UIImageView()
+            
+            // set background color to blue
+            cloud.image = UIImage(named: "cloud1")
+            
+            // set frame (position and size) of the square
+            // iOS coordinate system starts at the top left of the screen
+            // so this square will be at top left of screen, 50x50pt
+            // CG in CGRect stands for Core Graphics
+            let size : CGFloat = CGFloat( arc4random_uniform(40)) + 30
+            
+            // set yPosition to be a random number between 20.0 and 220.0
+            let yPosition : CGFloat = CGFloat( arc4random_uniform(150))+20
+            let xPos = arc4random_uniform(2)
+            
+            
+            //        cloud.frame = CGRect(x: 0 - 50, y: 120, width: 50, height: 50)
+            if xPos == 0 {
+                cloud.frame = CGRectMake(0 - size, yPosition, size, size)
+            } else {
+                cloud.frame = CGRect(x: self.view.bounds.width + size, y: yPosition, width: size, height: size)
+            }
+            
+            cloud.contentMode = .ScaleAspectFit
+            
+            // finally, add the square to the screen
+            self.animateBackgroundView.addSubview(cloud)
+            
+            duration = NSTimeInterval(arc4random_uniform(30) + 10)
+            let delay = 0.0
+            //        UIView.animateWithDuration(duration, animations: { () -> Void in
+            //            cloud.frame = CGRect(x: self.view.bounds.width + 50, y: 120, width: 50, height: 50)
+            //            }) { (finished) -> Void in
+            //                cloud.removeFromSuperview()
+            //        }
+            UIView.animateWithDuration(duration, delay: delay, options: [.CurveLinear, .Autoreverse], animations: { () -> Void in
+                //
+                if xPos == 0 {
+                    cloud.frame = CGRect(x: self.view.bounds.width + size, y: yPosition, width: size, height: size)
+                } else {
+                    cloud.frame = CGRectMake(0 - size, yPosition, size, size)
+                }
+                
+                }) { (finished) -> Void in
+                    //
+                    cloud.removeFromSuperview()
+            }
+            
+        }
+        let newCloudDuration = NSTimeInterval(arc4random_uniform(30) + 10)
+        NSTimer.scheduledTimerWithTimeInterval(newCloudDuration, target: self, selector: Selector("createCoolClouds"), userInfo: nil, repeats: false)
+        
     }
     
     func initiateNavController() {
@@ -203,6 +276,12 @@ extension ViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         view.endEditing(true)
+    }
+}
+
+extension ViewController: UISplitViewControllerDelegate {
+    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
+        return true
     }
 }
 

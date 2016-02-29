@@ -123,7 +123,7 @@ class Pokemon {
             let result = response.result
             
             if let dict = result.value as? Dictionary<String, AnyObject> {
-                
+                print(dict)
                 if let weight = dict["weight"] as? String {
                     self._weight = weight
                 }
@@ -137,7 +137,7 @@ class Pokemon {
                     self._defense = "\(defense)"
                 }
                 if let types = dict["types"] as? [Dictionary<String, String>] where types.count > 0 {
-//                 print(types.debugDescription)
+                 print("Type: \(types.debugDescription)")
                     if let name = types[0]["name"] {
                         self._type = name.capitalizedString
                     }

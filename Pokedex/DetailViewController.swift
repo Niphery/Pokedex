@@ -32,6 +32,8 @@ class DetailViewController: UIViewController {
 
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
+//    @IBOutlet weak var scrollView: UIScrollView!
+    
     
     var pokemon: Pokemon!
     
@@ -39,6 +41,11 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
 //        self.activityIndicator.startAnimating()
         // Do any additional setup after loading the view.
+//        scrollView.contentSize = CGSize(width: tableView.bounds.width, height: tableView.bounds.height)
+        if pokemon == nil {
+            pokemon = Pokemon(name: "Bulbasaur", pokedexID: 1)
+        }
+        
         self.title = pokemon.name.capitalizedString
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
@@ -52,7 +59,7 @@ class DetailViewController: UIViewController {
         self.pokemon.downloadPokemonDetails { () -> () in
             // execute code once data downloaded
             self.updateUI()
-            print(self.pokemon.moves)
+            //            print(self.pokemon.moves)
             self.tableView.reloadData()
             self.activityIndicator.stopAnimating()
         }
@@ -60,6 +67,21 @@ class DetailViewController: UIViewController {
         self.tableView.hidden = true
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+//        print(tableView.bounds.width)
+//        print(tableView.bounds.height)
+//        scrollView.contentSize = CGSize(width: tableView.frame.size.width, height: tableView.frame.size.height)
     }
 
     override func didReceiveMemoryWarning() {
@@ -110,16 +132,7 @@ class DetailViewController: UIViewController {
         }
 
     }
-    
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
