@@ -13,7 +13,7 @@ Using:
 Known Bug: Switching the view from portrait to landscape cause an issue in the splitView. Correction in progress.
 
 ![alt tag](https://dl.dropboxusercontent.com/u/7493886/IOS%20Projects/Pokedex/MainScreen.png)
-![alt tag](https://dl.dropboxusercontent.com/u/7493886/IOS%20Projects/Pokedex/SplitView.png)
+![alt tag](https://dl.dropboxusercontent.com/u/7493886/IOS%20Projects/Pokedex/SplitView.jpg)
 ![alt tag](https://dl.dropboxusercontent.com/u/7493886/IOS%20Projects/Pokedex/Bio.png)
 ![alt tag](https://dl.dropboxusercontent.com/u/7493886/IOS%20Projects/Pokedex/Moves.png)
 
