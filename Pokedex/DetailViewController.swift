@@ -12,9 +12,10 @@ class DetailViewController: UIViewController {
 
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var bioStackView: UIStackView!
-    @IBOutlet weak var evolutionUIView: UIView!
-    @IBOutlet weak var evosStackView: UIStackView!
+    @IBOutlet weak var scrollView: UIScrollView!
+//    @IBOutlet weak var bioStackView: UIStackView!
+//    @IBOutlet weak var evolutionUIView: UIView!
+//    @IBOutlet weak var evosStackView: UIStackView!
     
     
     @IBOutlet weak var mainImage: UIImageView!
@@ -94,15 +95,19 @@ class DetailViewController: UIViewController {
         if segmentedControl.selectedSegmentIndex == 0 {
             //Hide Moves
             tableView.hidden = true
-            bioStackView.hidden = false
-            evolutionUIView.hidden = false
-            evosStackView.hidden = false
+            
+            scrollView.hidden = false
+//            bioStackView.hidden = false
+//            evolutionUIView.hidden = false
+//            evosStackView.hidden = false
         } else {
             //Hide Bio
             tableView.hidden = false
-            bioStackView.hidden = true
-            evolutionUIView.hidden = true
-            evosStackView.hidden = true
+            
+            scrollView.hidden = true
+//            bioStackView.hidden = true
+//            evolutionUIView.hidden = true
+//            evosStackView.hidden = true
         }
     }
 

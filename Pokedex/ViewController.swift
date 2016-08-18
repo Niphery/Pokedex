@@ -26,13 +26,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        searchBar.delegate = self
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+       
         self.splitViewController?.delegate = self
-        
-        searchBar.returnKeyType = UIReturnKeyType.Done
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.AllVisible
+        
+        self.searchBar.delegate = self
+        self.searchBar.returnKeyType = UIReturnKeyType.Done
+        
         
         // Configure Navigation Bar Title
 //        initiateNavController()
@@ -109,7 +111,7 @@ class ViewController: UIViewController {
         do {
             let csv = try CSV(contentsOfURL: path)
             let rows = csv.rows
-            
+//            print(rows)
             for pokemon in rows {
                 let pokeId = Int(pokemon["id"]!)!
                 let name = pokemon["identifier"]!
@@ -149,7 +151,8 @@ class ViewController: UIViewController {
     
     func createCoolClouds() {
         var duration: NSTimeInterval!
-        for i in 0...5 {
+        for _ in 0...5 {
+//      for i in 0...5 {
             let cloud = UIImageView()
             
             // set background color to blue
@@ -200,7 +203,7 @@ class ViewController: UIViewController {
             
         }
         let newCloudDuration = NSTimeInterval(arc4random_uniform(30) + 10)
-        NSTimer.scheduledTimerWithTimeInterval(newCloudDuration, target: self, selector: Selector("createCoolClouds"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(newCloudDuration, target: self, selector: #selector(ViewController.createCoolClouds), userInfo: nil, repeats: false)
         
     }
     
@@ -279,6 +282,7 @@ extension ViewController: UISearchBarDelegate {
     }
 }
 
+//SplitView
 extension ViewController: UISplitViewControllerDelegate {
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
         return true

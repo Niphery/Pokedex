@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uvw-y7-fcm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uvw-y7-fcm">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -17,7 +17,6 @@
             <string>HelveticaNeue</string>
             <string>HelveticaNeue</string>
             <string>HelveticaNeue</string>
-            <string>HelveticaNeue</string>
             <string>HelveticaNeue-Bold</string>
             <string>HelveticaNeue</string>
             <string>HelveticaNeue-Bold</string>
@@ -29,6 +28,7 @@
             <string>HelveticaNeue-Bold</string>
             <string>HelveticaNeue</string>
             <string>HelveticaNeue-Bold</string>
+            <string>HelveticaNeue</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -144,7 +144,7 @@
                         <outlet property="collectionView" destination="Wsh-dA-YX2" id="v66-Mg-V3b"/>
                         <outlet property="searchBar" destination="SFp-6W-eKx" id="Vt0-se-h3j"/>
                         <outlet property="testdaf" destination="PER-fB-gIA" id="B6B-Pm-rtA"/>
-                        <segue destination="lrp-Pi-2Nt" kind="show" identifier="showDetailSegue" id="AK0-Eh-HNA"/>
+                        <segue destination="lrp-Pi-2Nt" kind="showDetail" identifier="showDetailSegue" id="8c2-KH-coD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -194,7 +194,7 @@
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qch-ye-WpR">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qch-ye-WpR">
                                                             <rect key="frame" x="8" y="65" width="84" height="23"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="13"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -387,8 +387,8 @@
                                                                 <variation key="default">
                                                                     <mask key="constraints">
                                                                         <exclude reference="6eH-ao-J7e"/>
-                                                                        <exclude reference="aC1-sD-E04"/>
                                                                         <exclude reference="Iev-tg-T0Q"/>
+                                                                        <exclude reference="aC1-sD-E04"/>
                                                                         <exclude reference="o02-iO-giw"/>
                                                                     </mask>
                                                                 </variation>
@@ -630,17 +630,15 @@
                     <connections>
                         <outlet property="activityIndicator" destination="2CH-7u-bO0" id="E80-Wd-F0N"/>
                         <outlet property="baseAttackLabel" destination="kcI-T8-YGY" id="ph0-Ds-Jpb"/>
-                        <outlet property="bioStackView" destination="ThL-PD-kDg" id="kQH-F1-ykd"/>
                         <outlet property="currentEvoImage" destination="SFe-Us-uAE" id="pGM-WH-wRi"/>
                         <outlet property="defenseLabel" destination="a86-BP-czS" id="Ktq-K7-zs5"/>
                         <outlet property="descriptionLabel" destination="Nsk-8M-gev" id="3UA-cR-C2U"/>
                         <outlet property="evolutionLabel" destination="RQe-at-6Pp" id="mFJ-hZ-HiD"/>
-                        <outlet property="evolutionUIView" destination="kKz-s7-3fL" id="xTb-lG-RcX"/>
-                        <outlet property="evosStackView" destination="JV7-3r-4u7" id="3Mk-UY-e4P"/>
                         <outlet property="heightLabel" destination="yte-N5-I9P" id="UTy-kn-uPd"/>
                         <outlet property="idLabel" destination="1u5-wZ-7DJ" id="Qry-BS-m4L"/>
                         <outlet property="mainImage" destination="e0o-7V-wGr" id="tdl-fk-m19"/>
                         <outlet property="nextEvoImage" destination="Sas-oc-ro2" id="ToJ-ko-8WD"/>
+                        <outlet property="scrollView" destination="Hw1-LC-FKP" id="Zun-su-49G"/>
                         <outlet property="segmentedControl" destination="jbe-ns-Ssc" id="cJT-UM-gMq"/>
                         <outlet property="tableView" destination="RbY-ZX-MDV" id="XcC-t5-EvR"/>
                         <outlet property="typeLabel" destination="hC5-e0-XVw" id="9XP-Rt-CRg"/>
@@ -708,6 +706,6 @@
         <image name="bg" width="1920" height="1200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AK0-Eh-HNA"/>
+        <segue reference="8c2-KH-coD"/>
     </inferredMetricsTieBreakers>
 </document>
